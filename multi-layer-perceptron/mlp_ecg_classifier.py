@@ -4,7 +4,7 @@ from keras.layers import Dense
 from utils import load_data
 
 class_names = ['N', 'S', 'V', 'F', 'Q']
-num_classes = 6
+num_classes = 5
 num_epochs = 20
 batch_size = 128
 data_root = './data/'
