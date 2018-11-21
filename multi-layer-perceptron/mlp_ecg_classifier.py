@@ -7,12 +7,9 @@ class_names = ['N', 'S', 'V', 'F', 'Q']
 num_classes = 6
 num_epochs = 20
 batch_size = 128
-data_root = './data'
+data_root = './data/'
 
-train_df = pd.read_csv(data_root + 'mitbih_test.csv')
-test_df = pd.read_csv(data_root + 'mitbih_train.csv')
-
-(x_train, y_train), (x_test, y_test) = load_data()
+(x_train, y_train), (x_test, y_test) = load_data(data_root)
 
 model = Sequential()
 
