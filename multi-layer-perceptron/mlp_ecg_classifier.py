@@ -1,5 +1,8 @@
 import tensorflow as tf
+import keras
 import pandas as pd
+import matplotlib.pyplot as plt
+
 from keras.models import Sequential
 from keras.layers import Dense
 from keras.utils import to_categorical
@@ -7,9 +10,7 @@ from utils import load_data, as_keras_metric
 import keras_metrics
 from keras.utils import plot_model
 from keras import regularizers
-from keras.optimizers import Adam
 
-import matplotlib.pyplot as plt
 class_names = ['N', 'S', 'V', 'F', 'Q']
 num_classes = 5
 num_epochs = 20
@@ -35,7 +36,7 @@ recall = as_keras_metric(tf.metrics.recall)
 
 
 model.compile(loss='categorical_crossentropy',
-              optimizer=Adam(lr=0.00001, beta_1=0.9, beta_2=0.999)
+              optimizer=keras.optimizers.Adam(lr=1e-5, beta_1=0.9, beta_2=0.999),
               metrics=['accuracy', precision, recall])
 
 model.fit(x=x_train, y=y_train, epochs=num_epochs, batch_size=batch_size, shuffle=True, class_weight={0: 0.1, 1: 0.2, 2: 0.2, 3: 0.2, 4: 0.3})
