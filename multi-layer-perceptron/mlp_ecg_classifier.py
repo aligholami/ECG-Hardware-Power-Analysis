@@ -20,7 +20,7 @@ model.add(Dense(units=128, activation='relu', input_dim=_))
 model.add(Dense(units=64, activation='relu', input_dim=_))
 model.add(Dense(units=num_classes, activation='softmax'))
 
-model.compile(optimizer='categorical_crossentropy',
+model.compile(loss='categorical_crossentropy',
               optimizer='sgd',
               metrics=['accuracy'])
 
