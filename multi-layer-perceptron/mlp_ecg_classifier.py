@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 from keras.models import Sequential
 from keras.layers import Dense
 from keras.utils import to_categorical
-from utils import load_data, as_keras_metric
+from utils import load_data, as_keras_metric, precision, recall, fmeasure
 import keras_metrics
 from keras.utils import plot_model
 from keras import regularizers
@@ -30,13 +30,8 @@ model.add(Dense(units=128, activation='relu', input_dim=num_features))
 model.add(Dense(units=64, activation='relu'))
 model.add(Dense(units=num_classes, activation='softmax'))
 
-# Load special metrics
-precision = as_keras_metric(tf.metrics.precision)
-recall = as_keras_metric(tf.metrics.recall)
-
-
 model.compile(loss='categorical_crossentropy',
-              optimizer=keras.optimizers.Adam(lr=1e-5, beta_1=0.9, beta_2=0.999),
+              optimizer=keras.optimizers.Adam(lr=1e-4, beta_1=0.9, beta_2=0.999),
               metrics=['accuracy', precision, recall])
 
 model.fit(x=x_train, y=y_train, epochs=num_epochs, batch_size=batch_size, shuffle=True, class_weight={0: 0.1, 1: 0.2, 2: 0.2, 3: 0.2, 4: 0.3})
