@@ -1,4 +1,3 @@
-from keras.utils import to_categorical
 import pandas as pd
 import config
 
