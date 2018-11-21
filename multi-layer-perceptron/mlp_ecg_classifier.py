@@ -36,7 +36,7 @@ model.compile(loss='categorical_crossentropy',
               optimizer='adam',
               metrics=['accuracy'])
 
-model.fit(x=x_train, y=y_train, epochs=num_epochs, batch_size=batch_size, validation_split=0.2)
+model.fit(x=x_train, y=y_train, epochs=num_epochs, batch_size=batch_size, validation_split=0.2, shuffle=True)
 # plot_model(model, to_file='vis.png')
 
 score = model.evaluate(x_test, y_test)
