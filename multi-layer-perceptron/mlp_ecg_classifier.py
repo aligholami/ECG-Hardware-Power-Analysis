@@ -1,5 +1,6 @@
 import tensorflow as tf
 import keras
+import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 
@@ -10,6 +11,7 @@ from utils import load_data, as_keras_metric, precision, recall, fmeasure
 import keras_metrics
 from keras.utils import plot_model
 from keras import regularizers
+from sklearn.metrics import classification_report
 
 class_names = ['N', 'S', 'V', 'F', 'Q']
 num_classes = 5
@@ -37,6 +39,10 @@ model.compile(loss='categorical_crossentropy',
 model.fit(x=x_train, y=y_train, epochs=num_epochs, batch_size=batch_size, shuffle=True, class_weight={0: 0.1, 1: 0.2, 2: 0.2, 3: 0.2, 4: 0.3})
 # plot_model(model, to_file='vis.png')
 
-score = model.evaluate(x_test, y_test)
-print("Test loss: ", score[0])
-print("Test accuracy: ", score[1])
+y_pred = model.predict_classes(x_test)
+y_test = np.argmax(y_test, axis=1) # Convert one-hot to index
+print(classification_report(y_test, y_pred))
+
+# score = model.evaluate(x_test, y_test)
+# print("Test loss: ", score[0])
+# print("Test accuracy: ", score[1])
