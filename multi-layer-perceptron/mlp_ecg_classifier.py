@@ -37,7 +37,7 @@ model.compile(loss='categorical_crossentropy',
               optimizer=keras.optimizers.Adam(lr=1e-4, beta_1=0.9, beta_2=0.999),
               metrics=['accuracy', precision, recall])
 
-# model.fit(x=x_train, y=y_train, epochs=num_epochs, batch_size=batch_size, shuffle=True, class_weight={0: 0.1, 1: 0.2, 2: 0.2, 3: 0.2, 4: 0.3})
+model.fit(x=x_train, y=y_train, epochs=num_epochs, batch_size=batch_size, shuffle=True, class_weight={0: 0.1, 1: 0.2, 2: 0.2, 3: 0.2, 4: 0.3})
 # plot_model(model, to_file='vis.png')
 
 y_pred = model.predict_classes(x_test)
