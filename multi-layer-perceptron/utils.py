@@ -6,14 +6,12 @@ import augmenter
 from sklearn.utils import shuffle
 
 def load_data(data_path):
-
-    x_train, y_train = [], []
-    x_test, y_test = [], []
     
-    train_df = pd.read_csv(data_path + config.TRAIN_FILE_NAME)
-    test_df = pd.read_csv(data_path + config.TEST_FILE_NAME)
+    train_df = pd.read_csv(data_path + config.TRAIN_FILE_NAME, header=None)
+    test_df = pd.read_csv(data_path + config.TEST_FILE_NAME, header=None)
     df = pd.concat([train_df, test_df], axis=0)
 
+    print(df.head())
     # Augment test data by n
     M = df.values
     X = M[:, :-1]
@@ -52,7 +50,7 @@ def load_data(data_path):
     X_train, y_train = shuffle(X_train, y_train, random_state=0)
     X_test, y_test = shuffle(X_test, y_test, random_state=0)
 
-    return (x_train, y_train), (x_test, y_test)
+    return (X_train, y_train), (X_test, y_test)
 
 def as_keras_metric(method):
     import functools

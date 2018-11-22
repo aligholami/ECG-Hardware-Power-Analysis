@@ -23,6 +23,9 @@ num_features = (187)
 
 (x_train, y_train), (x_test, y_test) = load_data(data_root)
 
+print("Train shapes:", x_train.shape, y_train.shape)
+print("Test shapes:", x_test.shape, y_test.shape)
+
 # convert class vectors to binary class matrices
 y_train = to_categorical(y_train, num_classes)
 y_test = to_categorical(y_test, num_classes)

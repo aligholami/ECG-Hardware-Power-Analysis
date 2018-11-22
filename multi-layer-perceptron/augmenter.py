@@ -7,7 +7,7 @@ def stretch(x):
     l = int(187 * (1 + (random.random()-0.5)/3))
     y = resample(x, l)
     if l < 187:
-        y_ = np.zeros(shape=(188, ))
+        y_ = np.zeros(shape=(187, ))
         y_[:l] = y
     else:
         y_ = y[:187]
@@ -19,7 +19,7 @@ def amplify(x):
     return x*factor
 
 def augment_by_n(x):
-    augmented = np.zeros(shape=(config.AUGMENT_N_TIMES, config.NUM_FEATURES))
+    augmented = np.zeros(shape=(config.AUGMENT_N_TIMES, config.NUM_FEATURES - 1))
 
     for i in range(config.AUGMENT_N_TIMES - 1):
         if random.random() < 0.33:
