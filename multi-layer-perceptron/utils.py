@@ -22,18 +22,15 @@ def load_data(data_path):
     C2 = np.argwhere(y == 2).flatten()
     C3 = np.argwhere(y == 3).flatten()
     C4 = np.argwhere(y == 4).flatten()
+    print(C0)
+    print(C1)
 
     augment = augmenter.augment_by_n
 
-    result_1 = np.apply_along_axis(augment, axis=1, arr=X[C1]).reshape(-1, 187)
-    classes_1 = np.ones(shape=(result_1.shape[0],), dtype=int)*3
-    X = np.vstack([X, result_1])
-    y = np.hstack([y, classes_1])
-
-    result_3 = np.apply_along_axis(augment, axis=1, arr=X[C3]).reshape(-1, 187)
-    classes_3 = np.ones(shape=(result_3.shape[0],), dtype=int)*3
-    X = np.vstack([X, result_3])
-    y = np.hstack([y, classes_3])
+    result = np.apply_along_axis(augment, axis=1, arr=X[C3]).reshape(-1, 187)
+    classe = np.ones(shape=(result.shape[0],), dtype=int)*3
+    X = np.vstack([X, result])
+    y = np.hstack([y, classe])
 
     subC0 = np.random.choice(C0, 800)
     subC1 = np.random.choice(C1, 800)
