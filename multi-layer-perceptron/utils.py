@@ -32,11 +32,11 @@ def load_data(data_path):
     X = np.vstack([X, result])
     y = np.hstack([y, classe])
 
-    subC0 = np.random.choice(C0, 800)
-    subC1 = np.random.choice(C1, 800)
-    subC2 = np.random.choice(C2, 800)
-    subC3 = np.random.choice(C3, 800)
-    subC4 = np.random.choice(C4, 800)
+    subC0 = np.random.choice(C0, 1200)
+    subC1 = np.random.choice(C1, 1200)
+    subC2 = np.random.choice(C2, 1200)
+    subC3 = np.random.choice(C3, 1200)
+    subC4 = np.random.choice(C4, 1200)
 
     X_test = np.vstack([X[subC0], X[subC1], X[subC2], X[subC3], X[subC4]])
     y_test = np.hstack([y[subC0], y[subC1], y[subC2], y[subC3], y[subC4]])

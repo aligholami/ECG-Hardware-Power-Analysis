@@ -16,8 +16,8 @@ from confusion_matrix import plot_confusion_matrix_from_data
 
 class_names = ['Normal', 'Supraventricular ectopic beat', 'Ventricular ectopic beat', 'Fusion beat', 'Unknown beat']
 num_classes = 5
-num_epochs = 5
-batch_size = 128
+num_epochs = 100
+batch_size = 256
 data_root = '../data/'
 num_features = (187)
 
@@ -32,12 +32,14 @@ y_test = to_categorical(y_test, num_classes)
 
 model = Sequential()
 
-model.add(Dense(units=128, activation='relu', input_dim=num_features))
-model.add(Dense(units=64, activation='relu'))
+model.add(Dense(units=256, use_bias=True, kernel_initializer='glorot_uniform', bias_initializer='zeros', activation='relu', input_dim=num_features))
+model.add(Dense(units=128, use_bias=True, kernel_initializer='glorot_uniform', bias_initializer='zeros', activation='relu', input_dim=num_features))
+model.add(Dense(units=64, use_bias=True, kernel_initializer='glorot_uniform', bias_initializer='zeros', activation='relu'))
+model.add(Dense(units=32, use_bias=True, kernel_initializer='glorot_uniform', bias_initializer='zeros', activation='relu'))
 model.add(Dense(units=num_classes, activation='softmax'))
 
 model.compile(loss='categorical_crossentropy',
-              optimizer=keras.optimizers.Adam(lr=1e-4, beta_1=0.9, beta_2=0.999),
+              optimizer=keras.optimizers.SGD(lr=1e-4),
               metrics=['accuracy', precision, recall])
 
 model.fit(x=x_train, y=y_train, epochs=num_epochs, batch_size=batch_size, shuffle=True)
