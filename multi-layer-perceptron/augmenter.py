@@ -7,7 +7,7 @@ def stretch(x):
     l = int(187 * (1 + (random.random()-0.5)/3))
     y = resample(x, l)
     if l < 187:
-        y_ = np.zeros(shape=(187, ))
+        y_ = np.zeros(shape=(188, ))
         y_[:l] = y
     else:
         y_ = y[:187]
