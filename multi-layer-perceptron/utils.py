@@ -1,6 +1,8 @@
 from keras import backend as K
 import pandas as pd
+import numpy as np
 import config
+import augmenter
 
 def load_data(data_path):
 
@@ -10,6 +12,9 @@ def load_data(data_path):
     train_df = pd.read_csv(data_path + config.TRAIN_FILE_NAME)
     test_df = pd.read_csv(data_path + config.TEST_FILE_NAME)
 
+    # Augment test data by n
+    test_df = np.apply_along_axis(augmenter.augment_by_n, axis=1)
+    
     # Extract the labels
     y_train = train_df.iloc[:, -1]
     y_test = test_df.iloc[:, -1]
