@@ -22,8 +22,6 @@ def load_data(data_path):
     C2 = np.argwhere(y == 2).flatten()
     C3 = np.argwhere(y == 3).flatten()
     C4 = np.argwhere(y == 4).flatten()
-    print(C0)
-    print(C1)
 
     augment = augmenter.augment_by_n
 

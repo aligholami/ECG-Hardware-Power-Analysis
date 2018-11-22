@@ -11,7 +11,6 @@ REFerences:
   http://scikit-learn.org/stable/auto_examples/model_selection/plot_confusion_matrix.html#sphx-glr-auto-examples-model-selection-plot-confusion-matrix-py
 """
 
-#imports
 from pandas import DataFrame
 import numpy as np
 import matplotlib.pyplot as plt
@@ -19,14 +18,12 @@ import matplotlib.font_manager as fm
 from matplotlib.collections import QuadMesh
 import seaborn as sn
 
-
 def get_new_fig(fn, figsize=[9,9]):
     """ Init graphics """
     fig1 = plt.figure(fn, figsize)
     ax1 = fig1.gca()   #Get Current Axis
     ax1.cla() # clear existing plot
     return fig1, ax1
-#
 
 def configcell_text_and_colors(array_df, lin, col, oText, facecolors, posi, fz, fmt, show_null_values=0):
     """
