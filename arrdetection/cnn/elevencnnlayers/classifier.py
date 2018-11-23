@@ -16,6 +16,8 @@ from keras.utils import plot_model
 from keras import regularizers
 from sklearn.metrics import classification_report
 from confusion_matrix import plot_confusion_matrix_from_data
+from keras.callbacks import LearningRateScheduler
+from sklearn.preprocessing import OneHotEncoder
 
 class_names = ['Normal', 'Supraventricular ectopic beat', 'Ventricular ectopic beat', 'Fusion beat', 'Unknown beat']
 num_classes = 5
@@ -24,14 +26,18 @@ batch_size = 256
 data_root = '../../data/'
 num_features = (187)
 
-(x_train, y_train), (x_test, y_test) = load_data(data_root)
+(X_train, y_train), (X_test, y_test) = load_data(data_root)
 
-print("Train shapes:", x_train.shape, y_train.shape)
-print("Test shapes:", x_test.shape, y_test.shape)
+X_train = np.expand_dims(X_train, 2)
+X_test = np.expand_dims(X_test, 2)
+
+print("Train shapes:", X_train.shape, y_train.shape)
+print("Test shapes:", X_test.shape, y_test.shape)
 
 # convert class vectors to binary class matrices
 y_train = to_categorical(y_train, num_classes)
 y_test = to_categorical(y_test, num_classes)
+
 
 inp = Input(shape=(num_features, 1))
 C = Conv1D(filters=32, kernel_size=5, strides=1)(inp)
@@ -91,10 +97,19 @@ model.compile(loss='categorical_crossentropy',
               optimizer=keras.optimizers.Adam(lr=1e-4, beta_1=0.9, beta_2=0.999),
               metrics=['accuracy', precision, recall])
 
-model.fit(x=x_train, y=y_train, epochs=num_epochs, batch_size=batch_size, shuffle=True)
+def exp_decay(epoch):
+    initial_lrate = 0.001
+    k = 0.75
+    t = n_obs//(10000 * batch_size)  # every epoch we do n_obs/batch_size iteration
+    lrate = initial_lrate * math.exp(-k*t)
+    return lrate
+
+lrate = LearningRateScheduler(exp_decay)
+
+model.fit(x=X_train, y=y_train, epochs=num_epochs, batch_size=batch_size, callbacks=[lrate], validation_data=(X_test, y_test))
 
 
-y_pred = model.predict(x_test)
+y_pred = model.predict(X_test)
 y_pred = np.argmax(y_pred, axis=1)
 print(y_pred)
 y_test = np.argmax(y_test, axis=1) # Convert one-hot to index
