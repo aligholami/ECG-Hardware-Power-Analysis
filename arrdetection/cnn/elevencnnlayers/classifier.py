@@ -5,6 +5,7 @@ import tensorflow as tf
 import keras
 import numpy as np
 import pandas as pd
+import math
 import matplotlib.pyplot as plt
 from keras.models import Sequential
 from keras.models import Model
@@ -30,6 +31,8 @@ num_features = (187)
 
 X_train = np.expand_dims(X_train, 2)
 X_test = np.expand_dims(X_test, 2)
+
+n_obs, feature, depth = X_train.shape
 
 print("Train shapes:", X_train.shape, y_train.shape)
 print("Test shapes:", X_test.shape, y_test.shape)
