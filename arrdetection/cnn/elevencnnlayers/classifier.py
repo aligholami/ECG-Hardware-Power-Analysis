@@ -19,6 +19,7 @@ from sklearn.metrics import classification_report
 from confusion_matrix import plot_confusion_matrix_from_data
 from keras.callbacks import LearningRateScheduler
 from sklearn.preprocessing import OneHotEncoder
+from keras.callbacks import TensorBoard
 
 class_names = ['Normal', 'Supraventricular ectopic beat', 'Ventricular ectopic beat', 'Fusion beat', 'Unknown beat']
 num_classes = 5
@@ -109,7 +110,10 @@ def exp_decay(epoch):
 
 lrate = LearningRateScheduler(exp_decay)
 
-model.fit(x=X_train, y=y_train, epochs=num_epochs, batch_size=batch_size, callbacks=[lrate], validation_data=(X_test, y_test))
+# Extract Tensorflow CNN and Classifier graph
+tensorboard = TensorBoard(log_dir='../../visualizations', histogram_freq=0, write_graph=True)
+
+model.fit(x=X_train, y=y_train, epochs=num_epochs, batch_size=batch_size, callbacks=[lrate, tensorboard], validation_data=(X_test, y_test))
 
 
 y_pred = model.predict(X_test)
